@@ -1,4 +1,5 @@
 {
+  "homepage": "http://silverskeith.github.io/scrumtimebox",
   "name": "scrumtimebox",
   "version": "0.1.0",
   "private": true,
@@ -10,7 +11,12 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
+  },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
