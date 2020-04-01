@@ -34,10 +34,19 @@ h1 {
   font-size: 5em;
 }
 
+.row {
+  margin-bottom: 0px;
+}
+
+.input-field {
+  width: 40%;
+}
+
 .container {
   border: 2px solid #ccc;
   padding: 30px;
   border-radius: 5px;
+  width: 100%;
 }
 
 .displayedTime {
@@ -91,7 +100,7 @@ input[type="text"] {
   padding: 0;
   height: 45px;
   font-size: 1em;
-  width: 100%;
+  width: 40%;
   border-top: none;
   border-left: none;
   border-right: none;
