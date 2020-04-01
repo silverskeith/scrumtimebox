@@ -3,20 +3,31 @@ import React from "react";
 export default class Input extends React.Component {
   onSubmit(event) {
     event.preventDefault();
-    // console.log('onSubmit', this.secondRef.current.value);
-    const strSeconds = this.refs.seconds.value;
-    // const strSeconds = this.secondRef.current.value;
-
-    if (strSeconds.match(/[0-9]/)) {
-      this.refs.seconds.value = "";
-      this.props.onSetCountdown(parseInt(strSeconds, 10));
-    }
+    this.form = React.createRef();
+    const strSeconds = (parseInt(Math.floor(this.refs.minutes.value * 60)) + parseInt(this.refs.seconds.value > 0 ? this.refs.seconds.value : 0));
+    
+    this.refs.seconds.value = "";
+    this.refs.minutes.value = "";
+    this.props.onSetCountdown(parseInt(strSeconds, 10));
   }
 
   render() {
     return (
-      <form ref="form" onSubmit={this.onSubmit.bind(this)}>
-        <input type="text" ref="seconds" placeholder="Enter time in seconds" />
+      <form ref={this.form} onSubmit={this.onSubmit.bind(this)}>
+        <div className="row">
+          <div className="input-field col s6">
+            <input type="text" id="mins" ref="minutes" />
+            <label htmlFor="mins">Minutes</label>
+          </div>
+          <div className="input-field col s6">
+            <input
+              type="text"
+              id="secs"
+              ref="seconds"
+            />
+            <label htmlFor="secs">Seconds</label>
+          </div>
+        </div>
         <input type="submit" value="Start"></input>
       </form>
     );
