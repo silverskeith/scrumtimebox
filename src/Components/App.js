@@ -3,6 +3,7 @@ import PresetBtn from "./PresetButton";
 import Clock from "./Clock";
 import Button from "./Button";
 import Input from "./Input";
+import Overlay from "./Overlay"
 
 
 export default class App extends React.Component {
@@ -25,6 +26,11 @@ export default class App extends React.Component {
           break;
         default:
       }
+    } else {
+      if(this.state.count === 0) {
+        this.handleStop();
+          document.getElementById('overlay').style.display = 'block';
+        }
     }
   }
 
@@ -32,10 +38,10 @@ export default class App extends React.Component {
     const secondVal = (second > 60) ? second - 60 : second;
     const minuteVal = Math.floor(second / 60);
 
-    this.setState({ minutes: minuteVal, seconds: (secondVal - 1), count: (parseInt(Math.floor(minuteVal * 60)) + parseInt(secondVal))});
+    this.setState({ minutes: minuteVal, seconds: ((secondVal > 0 ? secondVal - 1 : 0)), count: (parseInt(Math.floor(minuteVal * 60)) + parseInt(secondVal))});
 
     this.inputRef.current.refs.seconds.focus();
-    this.inputRef.current.refs.seconds.value = secondVal - 1;
+    this.inputRef.current.refs.seconds.value = (secondVal > 0 ? secondVal - 1 : 0);
     
     this.inputRef.current.refs.minutes.focus();
     this.inputRef.current.refs.minutes.value = minuteVal;
@@ -67,8 +73,13 @@ export default class App extends React.Component {
   }
 
   handlePreset(seconds) {
+    
     this.putTimeValue(seconds);
     this.setState({ count: seconds, running: true });
+  }
+
+  hideOverlay() {
+    document.getElementById("overlay").style.display = "none";
   }
 
   render() {
@@ -94,6 +105,7 @@ export default class App extends React.Component {
         />
         <Button label="Stop" onClickHandler={this.handleStop.bind(this)} />
         <Button label="Reset" onClickHandler={this.handleReset.bind(this)} />
+        <Overlay onClickHandler={this.hideOverlay.bind(this)}/>
       </div>
     );
   }
