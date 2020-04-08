@@ -8,7 +8,9 @@ export default class Input extends React.Component {
     
     this.refs.seconds.value = "";
     this.refs.minutes.value = "";
-    this.props.onSetCountdown(parseInt(strSeconds, 10));
+    if(strSeconds > 0) {
+      this.props.onSetCountdown(parseInt(strSeconds, 10));
+    }
   }
 
   render() {
@@ -16,19 +18,20 @@ export default class Input extends React.Component {
       <form ref={this.form} onSubmit={this.onSubmit.bind(this)}>
         <div className="row">
           <div className="input-field col s6">
-            <input type="text" id="mins" ref="minutes" />
+            <input type="number" id="mins" min="0" ref="minutes" />
             <label htmlFor="mins">Minutes</label>
           </div>
           <div className="input-field col s6">
             <input
-              type="text"
+              min="0"
+              type="number"
               id="secs"
               ref="seconds"
             />
             <label htmlFor="secs">Seconds</label>
           </div>
         </div>
-        <input type="submit" value="Start"></input>
+        <button className='waves-effect waves-light' type="submit">Start</button>
       </form>
     );
   }

@@ -54,7 +54,7 @@ h1 {
 }
 
 button,
-input[type="submit"] {
+button[type="submit"] {
   width: 100%;
   padding: 20px;
   margin-bottom: 5px;
@@ -86,15 +86,15 @@ button:hover {
   background-color: #df2b2b;
 }
 
-input[type="submit"] {
+button[type="submit"] {
   background-color: #9d190d;
 }
 
-input[type="submit"]:hover {
+button[type="submit"]:hover {
   background-color: #ee6439;
 }
 
-input[type="text"] {
+input[type="number"] {
   text-align: center;
   margin-bottom: 30px;
   padding: 0;
@@ -105,6 +105,18 @@ input[type="text"] {
   border-left: none;
   border-right: none;
   border-bottom: 2px solid #222;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 #overlay {

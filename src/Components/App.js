@@ -29,14 +29,15 @@ export default class App extends React.Component {
     } else {
       if(this.state.count === 0) {
         this.handleStop();
-          document.getElementById('overlay').style.display = 'block';
-        }
+        document.getElementById('overlay').style.display = 'block';
+      }
     }
   }
 
   putTimeValue(second) {
-    const secondVal = (second > 60) ? second - 60 : second;
     const minuteVal = Math.floor(second / 60);
+    const secondVal = second - minuteVal * 60;
+    
 
     this.setState({ minutes: minuteVal, seconds: ((secondVal > 0 ? secondVal - 1 : 0)), count: (parseInt(Math.floor(minuteVal * 60)) + parseInt(secondVal))});
 
@@ -63,8 +64,10 @@ export default class App extends React.Component {
   }
 
   handleReset() {
-    clearInterval(this.timer);
-    this.setState({ count: 0 });
+    if(this.state.count > 0) {
+      clearInterval(this.timer);
+      this.putTimeValue(0);
+    }
   }
 
   handleCountdown(seconds) {
@@ -73,7 +76,6 @@ export default class App extends React.Component {
   }
 
   handlePreset(seconds) {
-    
     this.putTimeValue(seconds);
     this.setState({ count: seconds, running: true });
   }
