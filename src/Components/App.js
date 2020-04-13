@@ -39,10 +39,10 @@ export default class App extends React.Component {
     const secondVal = second - minuteVal * 60;
     
 
-    this.setState({ minutes: minuteVal, seconds: ((secondVal > 0 ? secondVal - 1 : 0)), count: (parseInt(Math.floor(minuteVal * 60)) + parseInt(secondVal))});
+    this.setState({ minutes: minuteVal, seconds: ((secondVal > 0 ? secondVal : 0)), count: (parseInt(Math.floor(minuteVal * 60)) + parseInt(secondVal))});
 
     this.inputRef.current.refs.seconds.focus();
-    this.inputRef.current.refs.seconds.value = (secondVal > 0 ? secondVal - 1 : 0);
+    this.inputRef.current.refs.seconds.value = (secondVal > 0 ? secondVal : 0);
     
     this.inputRef.current.refs.minutes.focus();
     this.inputRef.current.refs.minutes.value = minuteVal;
