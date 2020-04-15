@@ -10,16 +10,24 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
-    this.state = {
-      seconds: 0,
-      minutes: 0,
-      count: 0,
-      running: false
-    };
+    this.state = this.initialState;
+  }
+
+  resetState() {
+    this.setState(this.initialState);
+  }
+
+  get initialState() {
+      return {
+        seconds: 0,
+        minutes: 0,
+        count: 0,
+        running: false
+      }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.running !== prevState.running) {
+    if (!prevState.running) {
       switch (this.state.running) {
         case true:
           this.handleStart();
@@ -38,14 +46,13 @@ export default class App extends React.Component {
     const minuteVal = Math.floor(second / 60);
     const secondVal = second - minuteVal * 60;
     
-
     this.setState({ minutes: minuteVal, seconds: ((secondVal > 0 ? secondVal : 0)), count: (parseInt(Math.floor(minuteVal * 60)) + parseInt(secondVal))});
 
     this.inputRef.current.refs.seconds.focus();
-    this.inputRef.current.refs.seconds.value = (secondVal > 0 ? secondVal : 0);
+    this.inputRef.current.refs.seconds.value = (secondVal > 0 ? secondVal : '');
     
     this.inputRef.current.refs.minutes.focus();
-    this.inputRef.current.refs.minutes.value = minuteVal;
+    this.inputRef.current.refs.minutes.value = (minuteVal > 0 ? minuteVal : '');
   }
 
   handleStart() {
@@ -66,6 +73,7 @@ export default class App extends React.Component {
   handleReset() {
     if(this.state.count > 0) {
       clearInterval(this.timer);
+      this.resetState();
       this.putTimeValue(0);
     }
   }
